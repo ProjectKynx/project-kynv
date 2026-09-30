@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>ProjectKynv</title>
 
   <style>
@@ -11,219 +12,371 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: Arial, Helvetica, sans-serif;
     }
 
-    html {
-      scroll-behavior: smooth;
+    :root {
+      --red: #d60000;
+      --red-bright: #ff1a1a;
+      --dark: #050505;
+      --panel: rgba(15, 15, 15, 0.72);
+      --text: #f5f5f5;
+      --muted: #777;
     }
 
     body {
-      background: #020607;
-      color: #fff;
       min-height: 100vh;
+      background:
+        radial-gradient(circle at 50% 35%, rgba(150, 0, 0, 0.16), transparent 35%),
+        #050505;
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
       overflow-x: hidden;
     }
 
-    body::before {
+    /* subtle grid */
+    body::after {
       content: "";
       position: fixed;
-      width: 650px;
-      height: 650px;
-      background: #00f6ff;
-      opacity: 0.07;
-      filter: blur(160px);
-      border-radius: 50%;
-      top: -300px;
-      left: 50%;
-      transform: translateX(-50%);
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+      background-size: 45px 45px;
       pointer-events: none;
+      z-index: -2;
     }
+
+    /* animated red glow */
+    .glow {
+      position: fixed;
+      width: 500px;
+      height: 500px;
+      left: 50%;
+      top: 30%;
+      transform: translate(-50%, -50%);
+      background: rgba(190, 0, 0, 0.12);
+      filter: blur(130px);
+      border-radius: 50%;
+      animation: pulse 5s ease-in-out infinite;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 0.55;
+        transform: translate(-50%, -50%) scale(1);
+      }
+
+      50% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.15);
+      }
+    }
+
+    /* NAVBAR */
 
     header {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      height: 75px;
+      height: 76px;
+
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 7%;
-      background: rgba(2, 6, 7, 0.8);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(0, 246, 255, 0.12);
-      z-index: 10;
+
+      padding: 0 6%;
+
+      background: rgba(5, 5, 5, 0.7);
+      backdrop-filter: blur(18px);
+
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+
+      z-index: 100;
     }
 
-    .logo {
-      color: #00f6ff;
-      font-size: 21px;
-      font-weight: 900;
-      letter-spacing: 3px;
-      text-shadow: 0 0 18px rgba(0, 246, 255, 0.7);
-    }
-
-    nav a {
-      color: #8b999c;
-      text-decoration: none;
-      margin-left: 28px;
-      font-size: 13px;
-      font-weight: 700;
-      transition: 0.25s;
-    }
-
-    nav a:hover {
-      color: #00f6ff;
-    }
-
-    .hero {
-      min-height: 100vh;
+    .brand {
       display: flex;
-      justify-content: center;
       align-items: center;
-      text-align: center;
-      padding: 110px 20px 60px;
-      position: relative;
+      gap: 12px;
     }
 
-    .hero-content {
-      max-width: 900px;
-    }
+    .brand-mark {
+      width: 31px;
+      height: 31px;
 
-    .tag {
-      display: inline-block;
-      padding: 8px 16px;
-      border: 1px solid rgba(0, 246, 255, 0.35);
-      background: rgba(0, 246, 255, 0.05);
-      color: #00f6ff;
-      border-radius: 999px;
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 3px;
-      margin-bottom: 28px;
-      box-shadow: 0 0 25px rgba(0, 246, 255, 0.06);
-    }
+      display: grid;
+      place-items: center;
 
-    h1 {
-      font-size: clamp(55px, 11vw, 125px);
-      line-height: 0.9;
-      letter-spacing: -6px;
-      font-weight: 950;
-      text-shadow:
-        0 0 15px rgba(0, 246, 255, 0.4),
-        0 0 55px rgba(0, 246, 255, 0.12);
-    }
+      background: var(--red);
+      color: white;
 
-    h1 span {
-      color: #00f6ff;
-      text-shadow:
-        0 0 15px rgba(0, 246, 255, 0.8),
-        0 0 45px rgba(0, 246, 255, 0.35);
-    }
-
-    .subtitle {
-      max-width: 620px;
-      margin: 32px auto;
-      color: #849094;
-      font-size: 16px;
-      line-height: 1.7;
-    }
-
-    .buttons {
-      display: flex;
-      justify-content: center;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin-top: 30px;
-    }
-
-    .discord-button {
-      display: inline-block;
-      padding: 16px 34px;
-      border-radius: 7px;
-      background: #00f6ff;
-      color: #001012;
-      text-decoration: none;
       font-size: 14px;
       font-weight: 900;
-      letter-spacing: 0.5px;
-      box-shadow:
-        0 0 18px rgba(0, 246, 255, 0.55),
-        0 0 55px rgba(0, 246, 255, 0.15);
-      transition: 0.25s;
+
+      box-shadow: 0 0 25px rgba(214, 0, 0, 0.35);
+
+      clip-path: polygon(
+        0 0,
+        100% 0,
+        100% 72%,
+        72% 100%,
+        0 100%
+      );
     }
 
-    .discord-button:hover {
-      transform: translateY(-4px);
-      box-shadow:
-        0 0 28px rgba(0, 246, 255, 0.85),
-        0 0 70px rgba(0, 246, 255, 0.25);
-    }
-
-    .secondary-button {
-      display: inline-block;
-      padding: 16px 34px;
-      border-radius: 7px;
-      border: 1px solid rgba(0, 246, 255, 0.35);
-      color: #00f6ff;
-      text-decoration: none;
+    .brand-name {
       font-size: 14px;
-      font-weight: 800;
-      transition: 0.25s;
-    }
-
-    .secondary-button:hover {
-      background: rgba(0, 246, 255, 0.07);
-      border-color: #00f6ff;
-    }
-
-    .owners {
-      margin-top: 55px;
-      color: #465356;
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 3px;
-    }
-
-    .owners span {
-      color: #00f6ff;
-    }
-
-    .line {
-      width: 100px;
-      height: 1px;
-      margin: 25px auto 0;
-      background: #00f6ff;
-      box-shadow: 0 0 12px #00f6ff;
-      opacity: 0.7;
-    }
-
-    footer {
-      position: absolute;
-      bottom: 20px;
-      width: 100%;
-      text-align: center;
-      color: #283235;
-      font-size: 10px;
+      font-weight: 900;
       letter-spacing: 2px;
     }
 
-    @media (max-width: 600px) {
+    nav {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+    }
+
+    nav a {
+      color: #858585;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      transition: 0.2s;
+    }
+
+    nav a:hover {
+      color: white;
+    }
+
+    .nav-discord {
+      padding: 10px 17px;
+      border: 1px solid rgba(214, 0, 0, 0.55);
+      color: #ff3b3b !important;
+    }
+
+    .nav-discord:hover {
+      background: rgba(214, 0, 0, 0.1);
+      border-color: var(--red-bright);
+    }
+
+    /* HERO */
+
+    main {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 120px 20px 80px;
+    }
+
+    .hero {
+      width: 100%;
+      max-width: 1100px;
+      text-align: center;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+
+      padding: 8px 14px;
+
+      background: rgba(255, 255, 255, 0.035);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+
+      color: #8c8c8c;
+
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 2px;
+
+      margin-bottom: 35px;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--red-bright);
+      box-shadow: 0 0 10px var(--red-bright);
+    }
+
+    h1 {
+      font-size: clamp(60px, 12vw, 145px);
+      line-height: 0.82;
+      letter-spacing: -8px;
+      font-weight: 950;
+
+      color: white;
+
+      text-shadow:
+        0 15px 60px rgba(0, 0, 0, 0.7);
+    }
+
+    h1 span {
+      color: var(--red);
+      text-shadow:
+        0 0 20px rgba(214, 0, 0, 0.35);
+    }
+
+    .description {
+      max-width: 570px;
+      margin: 35px auto 0;
+
+      color: var(--muted);
+
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    /* BUTTONS */
+
+    .actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+
+      margin-top: 34px;
+    }
+
+    .btn {
+      min-width: 170px;
+      padding: 15px 24px;
+
+      text-decoration: none;
+
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 1px;
+
+      transition: 0.25s;
+    }
+
+    .primary {
+      background: var(--red);
+      color: white;
+
+      box-shadow:
+        0 10px 35px rgba(214, 0, 0, 0.18);
+    }
+
+    .primary:hover {
+      background: var(--red-bright);
+      transform: translateY(-3px);
+
+      box-shadow:
+        0 14px 45px rgba(214, 0, 0, 0.3);
+    }
+
+    .outline {
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      color: #aaa;
+      background: rgba(255, 255, 255, 0.025);
+    }
+
+    .outline:hover {
+      border-color: rgba(255, 255, 255, 0.3);
+      color: white;
+      transform: translateY(-3px);
+    }
+
+    /* INFO CARDS */
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+
+      max-width: 760px;
+      margin: 65px auto 0;
+    }
+
+    .card {
+      padding: 20px;
+
+      background: var(--panel);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+
+      text-align: left;
+
+      backdrop-filter: blur(12px);
+      transition: 0.25s;
+    }
+
+    .card:hover {
+      border-color: rgba(214, 0, 0, 0.4);
+      transform: translateY(-4px);
+    }
+
+    .card-label {
+      color: #555;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .card-value {
+      margin-top: 8px;
+
+      color: #ddd;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .card-value span {
+      color: var(--red-bright);
+    }
+
+    /* FOOTER */
+
+    footer {
+      position: fixed;
+      bottom: 18px;
+      left: 0;
+      width: 100%;
+
+      text-align: center;
+
+      color: #353535;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 650px) {
+
       header {
-        padding: 0 5%;
+        padding: 0 20px;
       }
 
-      nav a {
-        margin-left: 12px;
+      nav a:not(.nav-discord) {
+        display: none;
       }
 
       h1 {
-        letter-spacing: -3px;
+        letter-spacing: -5px;
       }
 
-      .subtitle {
+      .description {
         font-size: 14px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+        max-width: 330px;
+      }
+
+      .card {
+        text-align: center;
       }
     }
   </style>
@@ -231,63 +384,93 @@
 
 <body>
 
+  <div class="glow"></div>
+
   <header>
-    <div class="logo">KYNV</div>
+
+    <div class="brand">
+      <div class="brand-mark">K</div>
+      <div class="brand-name">PROJECTKYNV</div>
+    </div>
 
     <nav>
       <a href="#home">HOME</a>
-      <a href="https://discord.gg/bgtqHPykB6" target="_blank">DISCORD</a>
+
+      <a
+        class="nav-discord"
+        href="https://discord.gg/bgtqHPykB6"
+        target="_blank">
+        DISCORD
+      </a>
     </nav>
+
   </header>
 
-  <main class="hero" id="home">
 
-    <div class="hero-content">
+  <main id="home">
 
-      <div class="tag">
-        WELCOME TO THE PROJECT
+    <section class="hero">
+
+      <div class="status">
+        <div class="status-dot"></div>
+        DEVELOPMENT ACTIVE
       </div>
 
       <h1>
         PROJECT<span>KYNV</span>
       </h1>
 
-      <p class="subtitle">
-        A community-driven Fortnite project.
-        Join the Discord to follow development,
-        meet the community, and stay up to date.
+      <p class="description">
+        A community-driven Fortnite project built by
+        <strong>KT</strong> and <strong>Ryvex</strong>.
+        Follow development and join the community.
       </p>
 
-      <div class="buttons">
+      <div class="actions">
 
         <a
-          class="discord-button"
+          class="btn primary"
           href="https://discord.gg/bgtqHPykB6"
           target="_blank">
           JOIN DISCORD
         </a>
 
         <a
-          class="secondary-button"
-          href="#home">
-          PROJECT INFO
+          class="btn outline"
+          href="#about">
+          LEARN MORE
         </a>
 
       </div>
 
-      <div class="owners">
-        CREATED BY <span>KT</span> &amp; <span>RYVEX</span>
+
+      <div class="cards" id="about">
+
+        <div class="card">
+          <div class="card-label">PROJECT</div>
+          <div class="card-value">Project <span>Kynv</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-label">OWNERS</div>
+          <div class="card-value">KT × Ryvex</div>
+        </div>
+
+        <div class="card">
+          <div class="card-label">COMMUNITY</div>
+          <div class="card-value">Discord <span>Online</span></div>
+        </div>
+
       </div>
 
-      <div class="line"></div>
-
-    </div>
-
-    <footer>
-      © 2026 PROJECTKYNV
-    </footer>
+    </section>
 
   </main>
+
+
+  <footer>
+    © 2026 PROJECTKYNV
+  </footer>
 
 </body>
 </html>
