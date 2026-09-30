@@ -1,17 +1,32 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>ProjectKynv</title>
-  <meta name="description" content="ProjectKynv — A Fortnite UEFN project by KT × Ryvex.">
+  <title>ProjectKynv — Fortnite Project</title>
+  <meta name="description" content="ProjectKynv — An OG-inspired Fortnite project built by KT × Ryvex.">
 
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+    }
+
+    :root {
+      --red: #ff1f2d;
+      --red-dark: #b50916;
+      --red-light: #ff4b55;
+      --black: #050505;
+      --black-2: #090909;
+      --panel: #0d0d0f;
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #ffffff;
+      --muted: #85858d;
     }
 
     html {
@@ -19,11 +34,9 @@
     }
 
     body {
-      font-family: Arial, Helvetica, sans-serif;
-      background:
-        radial-gradient(circle at 50% -10%, #5c0808 0%, #210303 28%, #080808 65%);
-      color: #fff;
-      min-height: 100vh;
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      background: var(--black);
+      color: var(--text);
       overflow-x: hidden;
     }
 
@@ -32,284 +45,615 @@
       position: fixed;
       inset: 0;
       pointer-events: none;
-      background:
-        linear-gradient(rgba(255, 0, 0, 0.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 0, 0, 0.025) 1px, transparent 1px);
-      background-size: 45px 45px;
+      z-index: 999;
+      opacity: .035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
     }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* BACKGROUND */
+
+    .background {
+      position: fixed;
+      inset: 0;
+      z-index: -5;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(255, 0, 20, .18), transparent 35%),
+        radial-gradient(circle at 0% 50%, rgba(150, 0, 10, .08), transparent 30%),
+        #050505;
+    }
+
+    .background::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(rgba(255, 255, 255, .018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, .018) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: linear-gradient(to bottom, black, transparent 75%);
+    }
+
+    .glow {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: rgba(255, 0, 20, .10);
+      filter: blur(120px);
+      animation: float 8s ease-in-out infinite;
+    }
+
+    .glow.one {
+      top: -300px;
+      left: 10%;
+    }
+
+    .glow.two {
+      top: 45%;
+      right: -350px;
+      animation-delay: -4s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(50px); }
+    }
+
+    /* NAV */
 
     nav {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      z-index: 10;
+      height: 76px;
+      padding: 0 7%;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 22px 7%;
-      background: rgba(5, 5, 5, 0.78);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(255, 40, 40, 0.15);
+      z-index: 100;
+      background: rgba(4, 4, 5, .72);
+      border-bottom: 1px solid rgba(255, 255, 255, .06);
+      backdrop-filter: blur(20px);
     }
 
     .logo {
-      font-size: 21px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 17px;
       font-weight: 900;
       letter-spacing: 2px;
+    }
+
+    .logo-mark {
+      width: 32px;
+      height: 32px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #ff303d, #a8000d);
+      box-shadow: 0 0 25px rgba(255, 20, 35, .3);
+      font-size: 14px;
     }
 
     .logo span {
-      color: #ff2424;
+      color: var(--red);
     }
 
-    nav a {
-      color: #aaa;
-      text-decoration: none;
-      margin-left: 28px;
-      font-size: 13px;
-      font-weight: 700;
-      transition: 0.2s;
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 34px;
     }
 
-    nav a:hover {
-      color: #ff3030;
+    .nav-links a {
+      color: #898991;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      transition: .25s;
     }
+
+    .nav-links a:hover {
+      color: white;
+    }
+
+    .nav-discord {
+      padding: 11px 17px;
+      border-radius: 7px;
+      background: #151518;
+      border: 1px solid rgba(255,255,255,.09);
+    }
+
+    .nav-discord:hover {
+      border-color: rgba(255, 30, 45, .5) !important;
+      color: white !important;
+    }
+
+    /* HERO */
 
     .hero {
       min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 120px 20px 70px;
       position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 150px 20px 100px;
     }
 
     .hero-content {
-      max-width: 900px;
+      max-width: 1000px;
+      animation: heroIn 1s ease forwards;
     }
 
-    .tag {
-      display: inline-block;
-      padding: 8px 15px;
-      border: 1px solid rgba(255, 50, 50, 0.4);
-      border-radius: 999px;
-      color: #ff4a4a;
-      background: rgba(255, 0, 0, 0.06);
-      font-size: 11px;
-      font-weight: 800;
+    @keyframes heroIn {
+      from {
+        opacity: 0;
+        transform: translateY(25px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 14px;
+      border-radius: 100px;
+      border: 1px solid rgba(255, 40, 55, .28);
+      background: rgba(255, 20, 30, .055);
+      color: #ff6670;
+      font-size: 10px;
+      font-weight: 900;
       letter-spacing: 2px;
-      margin-bottom: 25px;
+      margin-bottom: 28px;
     }
 
-    h1 {
-      font-size: clamp(55px, 10vw, 115px);
-      line-height: 0.9;
-      font-weight: 950;
-      letter-spacing: -5px;
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #ff2836;
+      box-shadow: 0 0 12px #ff2836;
+      animation: pulse 1.7s infinite;
+    }
+
+    @keyframes pulse {
+      50% {
+        opacity: .35;
+        transform: scale(.7);
+      }
+    }
+
+    .hero h1 {
+      font-size: clamp(58px, 11vw, 135px);
+      line-height: .83;
+      font-weight: 900;
+      letter-spacing: -7px;
       text-transform: uppercase;
-      text-shadow: 0 0 50px rgba(255, 0, 0, 0.25);
+      text-shadow:
+        0 0 80px rgba(255, 0, 20, .16),
+        0 3px 0 rgba(255,255,255,.03);
     }
 
-    h1 span {
-      color: #ff2424;
+    .hero h1 .red {
+      color: var(--red);
     }
 
-    .subtitle {
+    .hero-subtitle {
       max-width: 650px;
-      margin: 28px auto 35px;
-      color: #aaa;
-      font-size: 17px;
-      line-height: 1.7;
+      margin: 32px auto 38px;
+      color: #8d8d95;
+      font-size: 15px;
+      line-height: 1.8;
     }
 
-    .buttons {
+    .hero-subtitle strong {
+      color: #ddd;
+    }
+
+    .hero-buttons {
       display: flex;
       justify-content: center;
-      gap: 13px;
       flex-wrap: wrap;
+      gap: 12px;
     }
 
     .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 175px;
-      padding: 15px 24px;
+      min-width: 185px;
+      padding: 15px 23px;
       border-radius: 8px;
-      text-decoration: none;
-      font-size: 13px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 9px;
+      font-size: 11px;
       font-weight: 900;
-      transition: 0.25s;
+      letter-spacing: .8px;
+      transition: .25s ease;
     }
 
     .btn-primary {
-      background: #e71919;
-      color: #fff;
-      box-shadow: 0 8px 35px rgba(231, 25, 25, 0.25);
+      background: linear-gradient(135deg, #ff2735, #c90c19);
+      box-shadow:
+        0 12px 35px rgba(255, 20, 35, .22),
+        inset 0 1px rgba(255,255,255,.18);
     }
 
     .btn-primary:hover {
-      background: #ff3030;
-      transform: translateY(-3px);
-      box-shadow: 0 12px 40px rgba(255, 30, 30, 0.4);
+      transform: translateY(-4px);
+      box-shadow:
+        0 18px 45px rgba(255, 20, 35, .34),
+        inset 0 1px rgba(255,255,255,.2);
     }
 
     .btn-secondary {
-      color: #fff;
-      border: 1px solid #3b3b3b;
-      background: #111;
+      background: rgba(255,255,255,.035);
+      border: 1px solid rgba(255,255,255,.1);
+      color: #ddd;
     }
 
     .btn-secondary:hover {
-      border-color: #ff2929;
-      transform: translateY(-3px);
+      transform: translateY(-4px);
+      border-color: rgba(255, 35, 50, .5);
+      background: rgba(255, 30, 40, .05);
     }
 
-    section {
-      position: relative;
-      padding: 100px 7%;
-    }
+    /* SCROLL */
 
-    .section-title {
-      text-align: center;
-      margin-bottom: 50px;
-    }
-
-    .section-title small {
-      color: #ff3030;
-      font-size: 11px;
+    .scroll {
+      position: absolute;
+      bottom: 35px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #4d4d52;
+      font-size: 9px;
       font-weight: 900;
       letter-spacing: 3px;
     }
 
-    .section-title h2 {
-      margin-top: 10px;
-      font-size: 38px;
-      text-transform: uppercase;
+    .scroll::after {
+      content: "";
+      display: block;
+      width: 1px;
+      height: 32px;
+      margin: 10px auto 0;
+      background: linear-gradient(#ff2635, transparent);
     }
 
-    .cards {
-      max-width: 1050px;
+    /* SECTIONS */
+
+    section {
+      position: relative;
+      padding: 120px 7%;
+    }
+
+    .section-head {
+      max-width: 1000px;
+      margin: 0 auto 55px;
+    }
+
+    .section-label {
+      color: var(--red);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 3px;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: clamp(35px, 5vw, 54px);
+      font-weight: 900;
+      letter-spacing: -2px;
+    }
+
+    .section-description {
+      max-width: 600px;
+      margin-top: 14px;
+      color: #77777f;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    /* FEATURES */
+
+    .features {
+      max-width: 1000px;
       margin: auto;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
+      gap: 14px;
     }
 
-    .card {
-      background: linear-gradient(145deg, #151515, #0b0b0b);
-      border: 1px solid #242424;
-      border-radius: 14px;
+    .feature {
+      position: relative;
+      overflow: hidden;
+      min-height: 240px;
       padding: 30px;
-      transition: 0.25s;
+      border-radius: 13px;
+      background: linear-gradient(145deg, #111113, #09090a);
+      border: 1px solid var(--border);
+      transition: .3s;
     }
 
-    .card:hover {
-      transform: translateY(-5px);
-      border-color: rgba(255, 40, 40, 0.5);
+    .feature::before {
+      content: "";
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      top: -100px;
+      right: -70px;
+      background: var(--red);
+      opacity: .08;
+      filter: blur(45px);
+      border-radius: 50%;
+      transition: .3s;
     }
 
-    .card-icon {
+    .feature:hover {
+      transform: translateY(-7px);
+      border-color: rgba(255, 30, 45, .35);
+    }
+
+    .feature:hover::before {
+      opacity: .18;
+    }
+
+    .feature-number {
+      color: #3c3c42;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      margin-bottom: 45px;
+    }
+
+    .feature-icon {
       font-size: 25px;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
 
-    .card h3 {
+    .feature h3 {
       font-size: 17px;
-      margin-bottom: 10px;
+      margin-bottom: 9px;
     }
 
-    .card p {
-      color: #8d8d8d;
-      font-size: 13px;
-      line-height: 1.7;
+    .feature p {
+      color: #707078;
+      font-size: 12px;
+      line-height: 1.75;
     }
 
-    .owners {
+    /* TEAM */
+
+    .team-grid {
       max-width: 850px;
       margin: auto;
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 18px;
+      gap: 14px;
     }
 
-    .owner {
-      padding: 30px;
-      background: #101010;
-      border: 1px solid #272727;
-      border-radius: 14px;
-      text-align: center;
+    .member {
+      position: relative;
+      overflow: hidden;
+      padding: 32px;
+      min-height: 180px;
+      border-radius: 13px;
+      background: #0d0d0f;
+      border: 1px solid var(--border);
     }
 
-    .owner-name {
-      font-size: 24px;
-      font-weight: 900;
+    .member::after {
+      content: "";
+      position: absolute;
+      width: 130px;
+      height: 130px;
+      right: -60px;
+      bottom: -80px;
+      border-radius: 50%;
+      background: var(--red);
+      filter: blur(50px);
+      opacity: .13;
     }
 
-    .owner-role {
-      color: #ff3030;
-      font-size: 11px;
+    .member-role {
+      color: var(--red);
+      font-size: 9px;
       font-weight: 900;
       letter-spacing: 2px;
-      margin-top: 8px;
-    }
-
-    .discord-box {
-      max-width: 850px;
-      margin: auto;
-      text-align: center;
-      padding: 65px 30px;
-      border-radius: 18px;
-      border: 1px solid rgba(255, 40, 40, 0.3);
-      background:
-        radial-gradient(circle at center, rgba(150, 0, 0, 0.2), transparent 65%),
-        #0d0d0d;
-    }
-
-    .discord-box h2 {
-      font-size: 38px;
       margin-bottom: 15px;
     }
 
-    .discord-box p {
-      color: #929292;
-      margin-bottom: 28px;
+    .member-name {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: -1px;
     }
 
-    footer {
+    .member-line {
+      width: 35px;
+      height: 2px;
+      margin-top: 22px;
+      background: var(--red);
+      box-shadow: 0 0 15px rgba(255,30,40,.5);
+    }
+
+    /* DOWNLOAD */
+
+    .download {
+      padding-top: 70px;
+    }
+
+    .download-box {
+      position: relative;
+      overflow: hidden;
+      max-width: 1000px;
+      margin: auto;
+      padding: 65px 60px;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 30, 45, .25);
+      background:
+        radial-gradient(circle at 50% 100%, rgba(255, 0, 20, .14), transparent 55%),
+        linear-gradient(135deg, #101012, #080809);
       text-align: center;
-      padding: 35px 20px;
-      border-top: 1px solid #1c1c1c;
-      color: #666;
+    }
+
+    .download-box::before {
+      content: "KYNV";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 180px;
+      font-weight: 900;
+      color: white;
+      opacity: .012;
+      pointer-events: none;
+    }
+
+    .download-box h2 {
+      position: relative;
+      font-size: clamp(32px, 5vw, 48px);
+      letter-spacing: -2px;
+      margin-bottom: 14px;
+    }
+
+    .download-box p {
+      position: relative;
+      max-width: 550px;
+      margin: 0 auto 28px;
+      color: #77777e;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    /* DISCORD */
+
+    .discord {
+      padding-top: 70px;
+    }
+
+    .discord-box {
+      max-width: 1000px;
+      margin: auto;
+      padding: 55px;
+      border-radius: 16px;
+      background: #0c0c0e;
+      border: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .discord-content h2 {
+      font-size: 28px;
+      margin-bottom: 9px;
+    }
+
+    .discord-content p {
+      color: #6f6f77;
       font-size: 12px;
+      line-height: 1.7;
+      max-width: 550px;
+    }
+
+    /* FOOTER */
+
+    footer {
+      margin-top: 80px;
+      padding: 30px 7%;
+      border-top: 1px solid rgba(255,255,255,.06);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #48484e;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .5px;
     }
 
     footer strong {
-      color: #ff2929;
+      color: #c41b26;
     }
 
-    @media (max-width: 750px) {
+    /* RESPONSIVE */
+
+    @media (max-width: 800px) {
       nav {
-        padding: 18px 5%;
+        padding: 0 5%;
       }
 
-      nav div:last-child {
+      .nav-links {
         display: none;
       }
 
-      .cards,
-      .owners {
+      .hero {
+        padding-left: 5%;
+        padding-right: 5%;
+      }
+
+      .hero h1 {
+        letter-spacing: -4px;
+      }
+
+      .features,
+      .team-grid {
         grid-template-columns: 1fr;
       }
 
-      h1 {
-        letter-spacing: -3px;
+      section {
+        padding: 90px 5%;
       }
 
-      section {
-        padding: 75px 5%;
+      .discord-box {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 38px 30px;
+      }
+
+      .download-box {
+        padding: 50px 25px;
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .logo {
+        font-size: 14px;
+      }
+
+      .logo-mark {
+        width: 28px;
+        height: 28px;
+      }
+
+      .hero h1 {
+        font-size: 58px;
+      }
+
+      .hero-subtitle {
+        font-size: 13px;
+      }
+
+      .btn {
+        width: 100%;
       }
     }
   </style>
@@ -317,30 +661,50 @@
 
 <body>
 
-  <nav>
-    <div class="logo">PROJECT<span>KYNV</span></div>
+  <div class="background">
+    <div class="glow one"></div>
+    <div class="glow two"></div>
+  </div>
 
-    <div>
+  <!-- NAVIGATION -->
+  <nav>
+    <a href="#" class="logo">
+      <div class="logo-mark">K</div>
+      PROJECT<span>KYNV</span>
+    </a>
+
+    <div class="nav-links">
       <a href="#about">ABOUT</a>
       <a href="#team">TEAM</a>
-      <a href="#discord">DISCORD</a>
+      <a href="#download">DOWNLOAD</a>
+      <a href="#discord" class="nav-discord">DISCORD</a>
     </div>
   </nav>
 
+
   <main>
 
+    <!-- HERO -->
     <section class="hero">
       <div class="hero-content">
-        <div class="tag">FORTNITE UEFN PROJECT</div>
 
-        <h1>PROJECT<span>KYNV</span></h1>
+        <div class="status">
+          <span class="status-dot"></span>
+          FORTNITE PROJECT · IN DEVELOPMENT
+        </div>
 
-        <p class="subtitle">
-          An OG-inspired Fortnite project built in UEFN.
-          Follow the development, join the community, and watch ProjectKynv come to life.
+        <h1>
+          PROJECT<span class="red">KYNV</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          An <strong>OG-inspired Fortnite experience</strong> built in UEFN.
+          Explore the project, follow development and join the community
+          as ProjectKynv continues to take shape.
         </p>
 
-        <div class="buttons">
+        <div class="hero-buttons">
+
           <a
             class="btn btn-primary"
             href="https://discord.gg/eA85TWF6yq"
@@ -348,78 +712,152 @@
             rel="noopener noreferrer"
           >
             JOIN DISCORD
+            <span>→</span>
           </a>
 
-          <a class="btn btn-secondary" href="#about">
-            LEARN MORE
+          <!-- REPLACE THE URL BELOW WITH YOUR DOWNLOAD LINK -->
+          <a
+            class="btn btn-secondary"
+            href="YOUR-DOWNLOAD-LINK-HERE"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            DOWNLOAD PROJECT
+            <span>↓</span>
           </a>
+
         </div>
       </div>
+
+      <div class="scroll">SCROLL</div>
     </section>
 
+
+    <!-- ABOUT -->
     <section id="about">
-      <div class="section-title">
-        <small>PROJECT</small>
-        <h2>What is ProjectKynv?</h2>
+
+      <div class="section-head">
+        <div class="section-label">01 / THE PROJECT</div>
+        <h2 class="section-title">Built for the OG experience.</h2>
+
+        <p class="section-description">
+          ProjectKynv is a Fortnite project focused on creating an
+          OG-inspired experience with custom gameplay, map development
+          and systems made inside UEFN.
+        </p>
       </div>
 
-      <div class="cards">
+      <div class="features">
 
-        <div class="card">
-          <div class="card-icon">🎮</div>
+        <div class="feature">
+          <div class="feature-number">01</div>
+          <div class="feature-icon">🎮</div>
           <h3>Fortnite</h3>
           <p>
-            A Fortnite-focused project built around an OG-inspired experience.
+            A Fortnite-focused experience inspired by the classic OG era
+            while bringing its own identity to the project.
           </p>
         </div>
 
-        <div class="card">
-          <div class="card-icon">🛠️</div>
+        <div class="feature">
+          <div class="feature-number">02</div>
+          <div class="feature-icon">⚡</div>
           <h3>UEFN</h3>
           <p>
-            Built using Unreal Editor for Fortnite with custom development and gameplay systems.
+            Developed with Unreal Editor for Fortnite, using custom
+            gameplay systems and creative development.
           </p>
         </div>
 
-        <div class="card">
-          <div class="card-icon">🗺️</div>
+        <div class="feature">
+          <div class="feature-number">03</div>
+          <div class="feature-icon">🗺️</div>
           <h3>Development</h3>
           <p>
-            Follow the map, gameplay, and feature development as the project progresses.
+            New features, map work and improvements are being developed
+            as the project continues forward.
           </p>
         </div>
 
       </div>
     </section>
 
+
+    <!-- TEAM -->
     <section id="team">
-      <div class="section-title">
-        <small>THE TEAM</small>
-        <h2>KT × Ryvex</h2>
+
+      <div class="section-head">
+        <div class="section-label">02 / THE TEAM</div>
+        <h2 class="section-title">The people behind Kynv.</h2>
+
+        <p class="section-description">
+          ProjectKynv is being developed by a small team focused on
+          building the project and its community.
+        </p>
       </div>
 
-      <div class="owners">
+      <div class="team-grid">
 
-        <div class="owner">
-          <div class="owner-name">KT</div>
-          <div class="owner-role">OWNER</div>
+        <div class="member">
+          <div class="member-role">OWNER</div>
+          <div class="member-name">KT</div>
+          <div class="member-line"></div>
         </div>
 
-        <div class="owner">
-          <div class="owner-name">Ryvex</div>
-          <div class="owner-role">CO-OWNER</div>
+        <div class="member">
+          <div class="member-role">CO-OWNER</div>
+          <div class="member-name">Ryvex</div>
+          <div class="member-line"></div>
         </div>
 
       </div>
     </section>
 
-    <section id="discord">
-      <div class="discord-box">
-        <h2>Join the Community</h2>
+
+    <!-- DOWNLOAD -->
+    <section id="download" class="download">
+
+      <div class="download-box">
+
+        <div class="section-label">03 / GET KYNV</div>
+
+        <h2>Ready to play?</h2>
 
         <p>
-          Get project updates, development news, sneak peeks, and community access.
+          Download ProjectKynv and experience the project for yourself.
+          Keep an eye on the Discord for updates and new releases.
         </p>
+
+        <!-- REPLACE THE URL BELOW WITH YOUR DOWNLOAD LINK -->
+        <a
+          class="btn btn-primary"
+          href="YOUR-DOWNLOAD-LINK-HERE"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          DOWNLOAD PROJECT
+          <span>↓</span>
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- DISCORD -->
+    <section id="discord" class="discord">
+
+      <div class="discord-box">
+
+        <div class="discord-content">
+          <h2>Join the community.</h2>
+
+          <p>
+            Get development updates, sneak peeks, announcements,
+            project news and community access through the official
+            ProjectKynv Discord.
+          </p>
+        </div>
 
         <a
           class="btn btn-primary"
@@ -428,15 +866,26 @@
           rel="noopener noreferrer"
         >
           JOIN PROJECTKYNV
+          <span>→</span>
         </a>
+
       </div>
+
     </section>
 
   </main>
 
+
   <footer>
-    © 2026 <strong>ProjectKynv</strong> — KT × Ryvex
+    <div>
+      © 2026 <strong>PROJECTKYNV</strong>
+    </div>
+
+    <div>
+      KT × Ryvex
+    </div>
   </footer>
 
 </body>
 </html>
+```
