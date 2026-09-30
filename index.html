@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>ProjectKynv</title>
+  <meta name="description" content="ProjectKynv — A Fortnite UEFN project by KT × Ryvex.">
 
   <style>
     * {
@@ -14,369 +14,302 @@
       box-sizing: border-box;
     }
 
-    :root {
-      --red: #d60000;
-      --red-bright: #ff1a1a;
-      --dark: #050505;
-      --panel: rgba(15, 15, 15, 0.72);
-      --text: #f5f5f5;
-      --muted: #777;
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
-      min-height: 100vh;
-      background:
-        radial-gradient(circle at 50% 35%, rgba(150, 0, 0, 0.16), transparent 35%),
-        #050505;
-      color: var(--text);
       font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at 50% -10%, #5c0808 0%, #210303 28%, #080808 65%);
+      color: #fff;
+      min-height: 100vh;
       overflow-x: hidden;
     }
 
-    /* subtle grid */
-    body::after {
+    body::before {
       content: "";
       position: fixed;
       inset: 0;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+      pointer-events: none;
+      background:
+        linear-gradient(rgba(255, 0, 0, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 0, 0, 0.025) 1px, transparent 1px);
       background-size: 45px 45px;
-      pointer-events: none;
-      z-index: -2;
     }
 
-    /* animated red glow */
-    .glow {
-      position: fixed;
-      width: 500px;
-      height: 500px;
-      left: 50%;
-      top: 30%;
-      transform: translate(-50%, -50%);
-      background: rgba(190, 0, 0, 0.12);
-      filter: blur(130px);
-      border-radius: 50%;
-      animation: pulse 5s ease-in-out infinite;
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    @keyframes pulse {
-      0%, 100% {
-        opacity: 0.55;
-        transform: translate(-50%, -50%) scale(1);
-      }
-
-      50% {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1.15);
-      }
-    }
-
-    /* NAVBAR */
-
-    header {
+    nav {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      height: 76px;
-
+      z-index: 10;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-
-      padding: 0 6%;
-
-      background: rgba(5, 5, 5, 0.7);
-      backdrop-filter: blur(18px);
-
-      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-
-      z-index: 100;
-    }
-
-    .brand {
-      display: flex;
       align-items: center;
-      gap: 12px;
+      padding: 22px 7%;
+      background: rgba(5, 5, 5, 0.78);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 40, 40, 0.15);
     }
 
-    .brand-mark {
-      width: 31px;
-      height: 31px;
-
-      display: grid;
-      place-items: center;
-
-      background: var(--red);
-      color: white;
-
-      font-size: 14px;
-      font-weight: 900;
-
-      box-shadow: 0 0 25px rgba(214, 0, 0, 0.35);
-
-      clip-path: polygon(
-        0 0,
-        100% 0,
-        100% 72%,
-        72% 100%,
-        0 100%
-      );
-    }
-
-    .brand-name {
-      font-size: 14px;
+    .logo {
+      font-size: 21px;
       font-weight: 900;
       letter-spacing: 2px;
     }
 
-    nav {
-      display: flex;
-      gap: 30px;
-      align-items: center;
+    .logo span {
+      color: #ff2424;
     }
 
     nav a {
-      color: #858585;
+      color: #aaa;
       text-decoration: none;
-      font-size: 12px;
+      margin-left: 28px;
+      font-size: 13px;
       font-weight: 700;
-      letter-spacing: 1px;
       transition: 0.2s;
     }
 
     nav a:hover {
-      color: white;
-    }
-
-    .nav-discord {
-      padding: 10px 17px;
-      border: 1px solid rgba(214, 0, 0, 0.55);
-      color: #ff3b3b !important;
-    }
-
-    .nav-discord:hover {
-      background: rgba(214, 0, 0, 0.1);
-      border-color: var(--red-bright);
-    }
-
-    /* HERO */
-
-    main {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 120px 20px 80px;
+      color: #ff3030;
     }
 
     .hero {
-      width: 100%;
-      max-width: 1100px;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       text-align: center;
+      padding: 120px 20px 70px;
+      position: relative;
     }
 
-    .status {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
+    .hero-content {
+      max-width: 900px;
+    }
 
-      padding: 8px 14px;
-
-      background: rgba(255, 255, 255, 0.035);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-
-      color: #8c8c8c;
-
-      font-size: 10px;
+    .tag {
+      display: inline-block;
+      padding: 8px 15px;
+      border: 1px solid rgba(255, 50, 50, 0.4);
+      border-radius: 999px;
+      color: #ff4a4a;
+      background: rgba(255, 0, 0, 0.06);
+      font-size: 11px;
       font-weight: 800;
       letter-spacing: 2px;
-
-      margin-bottom: 35px;
-    }
-
-    .status-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--red-bright);
-      box-shadow: 0 0 10px var(--red-bright);
+      margin-bottom: 25px;
     }
 
     h1 {
-      font-size: clamp(60px, 12vw, 145px);
-      line-height: 0.82;
-      letter-spacing: -8px;
+      font-size: clamp(55px, 10vw, 115px);
+      line-height: 0.9;
       font-weight: 950;
-
-      color: white;
-
-      text-shadow:
-        0 15px 60px rgba(0, 0, 0, 0.7);
+      letter-spacing: -5px;
+      text-transform: uppercase;
+      text-shadow: 0 0 50px rgba(255, 0, 0, 0.25);
     }
 
     h1 span {
-      color: var(--red);
-      text-shadow:
-        0 0 20px rgba(214, 0, 0, 0.35);
+      color: #ff2424;
     }
 
-    .description {
-      max-width: 570px;
-      margin: 35px auto 0;
-
-      color: var(--muted);
-
-      font-size: 15px;
+    .subtitle {
+      max-width: 650px;
+      margin: 28px auto 35px;
+      color: #aaa;
+      font-size: 17px;
       line-height: 1.7;
     }
 
-    /* BUTTONS */
-
-    .actions {
+    .buttons {
       display: flex;
       justify-content: center;
-      gap: 12px;
+      gap: 13px;
       flex-wrap: wrap;
-
-      margin-top: 34px;
     }
 
     .btn {
-      min-width: 170px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 175px;
       padding: 15px 24px;
-
+      border-radius: 8px;
       text-decoration: none;
-
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 900;
-      letter-spacing: 1px;
-
       transition: 0.25s;
     }
 
-    .primary {
-      background: var(--red);
-      color: white;
-
-      box-shadow:
-        0 10px 35px rgba(214, 0, 0, 0.18);
+    .btn-primary {
+      background: #e71919;
+      color: #fff;
+      box-shadow: 0 8px 35px rgba(231, 25, 25, 0.25);
     }
 
-    .primary:hover {
-      background: var(--red-bright);
+    .btn-primary:hover {
+      background: #ff3030;
       transform: translateY(-3px);
-
-      box-shadow:
-        0 14px 45px rgba(214, 0, 0, 0.3);
+      box-shadow: 0 12px 40px rgba(255, 30, 30, 0.4);
     }
 
-    .outline {
-      border: 1px solid rgba(255, 255, 255, 0.13);
-      color: #aaa;
-      background: rgba(255, 255, 255, 0.025);
+    .btn-secondary {
+      color: #fff;
+      border: 1px solid #3b3b3b;
+      background: #111;
     }
 
-    .outline:hover {
-      border-color: rgba(255, 255, 255, 0.3);
-      color: white;
+    .btn-secondary:hover {
+      border-color: #ff2929;
       transform: translateY(-3px);
     }
 
-    /* INFO CARDS */
+    section {
+      position: relative;
+      padding: 100px 7%;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .section-title small {
+      color: #ff3030;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 3px;
+    }
+
+    .section-title h2 {
+      margin-top: 10px;
+      font-size: 38px;
+      text-transform: uppercase;
+    }
 
     .cards {
+      max-width: 1050px;
+      margin: auto;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-
-      max-width: 760px;
-      margin: 65px auto 0;
+      gap: 18px;
     }
 
     .card {
-      padding: 20px;
-
-      background: var(--panel);
-      border: 1px solid rgba(255, 255, 255, 0.07);
-
-      text-align: left;
-
-      backdrop-filter: blur(12px);
+      background: linear-gradient(145deg, #151515, #0b0b0b);
+      border: 1px solid #242424;
+      border-radius: 14px;
+      padding: 30px;
       transition: 0.25s;
     }
 
     .card:hover {
-      border-color: rgba(214, 0, 0, 0.4);
-      transform: translateY(-4px);
+      transform: translateY(-5px);
+      border-color: rgba(255, 40, 40, 0.5);
     }
 
-    .card-label {
-      color: #555;
-      font-size: 9px;
-      font-weight: 800;
-      letter-spacing: 2px;
-      text-transform: uppercase;
+    .card-icon {
+      font-size: 25px;
+      margin-bottom: 20px;
     }
 
-    .card-value {
-      margin-top: 8px;
+    .card h3 {
+      font-size: 17px;
+      margin-bottom: 10px;
+    }
 
-      color: #ddd;
+    .card p {
+      color: #8d8d8d;
       font-size: 13px;
-      font-weight: 800;
+      line-height: 1.7;
     }
 
-    .card-value span {
-      color: var(--red-bright);
+    .owners {
+      max-width: 850px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
     }
 
-    /* FOOTER */
+    .owner {
+      padding: 30px;
+      background: #101010;
+      border: 1px solid #272727;
+      border-radius: 14px;
+      text-align: center;
+    }
+
+    .owner-name {
+      font-size: 24px;
+      font-weight: 900;
+    }
+
+    .owner-role {
+      color: #ff3030;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      margin-top: 8px;
+    }
+
+    .discord-box {
+      max-width: 850px;
+      margin: auto;
+      text-align: center;
+      padding: 65px 30px;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 40, 40, 0.3);
+      background:
+        radial-gradient(circle at center, rgba(150, 0, 0, 0.2), transparent 65%),
+        #0d0d0d;
+    }
+
+    .discord-box h2 {
+      font-size: 38px;
+      margin-bottom: 15px;
+    }
+
+    .discord-box p {
+      color: #929292;
+      margin-bottom: 28px;
+    }
 
     footer {
-      position: fixed;
-      bottom: 18px;
-      left: 0;
-      width: 100%;
-
       text-align: center;
-
-      color: #353535;
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 2px;
+      padding: 35px 20px;
+      border-top: 1px solid #1c1c1c;
+      color: #666;
+      font-size: 12px;
     }
 
-    /* MOBILE */
+    footer strong {
+      color: #ff2929;
+    }
 
-    @media (max-width: 650px) {
-
-      header {
-        padding: 0 20px;
+    @media (max-width: 750px) {
+      nav {
+        padding: 18px 5%;
       }
 
-      nav a:not(.nav-discord) {
+      nav div:last-child {
         display: none;
       }
 
-      h1 {
-        letter-spacing: -5px;
-      }
-
-      .description {
-        font-size: 14px;
-      }
-
-      .cards {
+      .cards,
+      .owners {
         grid-template-columns: 1fr;
-        max-width: 330px;
       }
 
-      .card {
-        text-align: center;
+      h1 {
+        letter-spacing: -3px;
+      }
+
+      section {
+        padding: 75px 5%;
       }
     }
   </style>
@@ -384,94 +317,126 @@
 
 <body>
 
-  <div class="glow"></div>
+  <nav>
+    <div class="logo">PROJECT<span>KYNV</span></div>
 
-  <header>
-
-    <div class="brand">
-      <div class="brand-mark">K</div>
-      <div class="brand-name">PROJECTKYNV</div>
+    <div>
+      <a href="#about">ABOUT</a>
+      <a href="#team">TEAM</a>
+      <a href="#discord">DISCORD</a>
     </div>
+  </nav>
 
-    <nav>
-      <a href="#home">HOME</a>
-
-      <a
-        class="nav-discord"
-        href="https://discord.gg/eA85TWF6yq"
-        target="_blank">
-        DISCORD
-      </a>
-    </nav>
-
-  </header>
-
-
-  <main id="home">
+  <main>
 
     <section class="hero">
+      <div class="hero-content">
+        <div class="tag">FORTNITE UEFN PROJECT</div>
 
-      <div class="status">
-        <div class="status-dot"></div>
-        DEVELOPMENT ACTIVE
+        <h1>PROJECT<span>KYNV</span></h1>
+
+        <p class="subtitle">
+          An OG-inspired Fortnite project built in UEFN.
+          Follow the development, join the community, and watch ProjectKynv come to life.
+        </p>
+
+        <div class="buttons">
+          <a
+            class="btn btn-primary"
+            href="https://discord.gg/eA85TWF6yq"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            JOIN DISCORD
+          </a>
+
+          <a class="btn btn-secondary" href="#about">
+            LEARN MORE
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="section-title">
+        <small>PROJECT</small>
+        <h2>What is ProjectKynv?</h2>
       </div>
 
-      <h1>
-        PROJECT<span>KYNV</span>
-      </h1>
+      <div class="cards">
 
-      <p class="description">
-        A community-driven Fortnite project built by
-        <strong>KT</strong> and <strong>Ryvex</strong>.
-        Follow development and join the community.
-      </p>
+        <div class="card">
+          <div class="card-icon">🎮</div>
+          <h3>Fortnite</h3>
+          <p>
+            A Fortnite-focused project built around an OG-inspired experience.
+          </p>
+        </div>
 
-      <div class="actions">
+        <div class="card">
+          <div class="card-icon">🛠️</div>
+          <h3>UEFN</h3>
+          <p>
+            Built using Unreal Editor for Fortnite with custom development and gameplay systems.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">🗺️</div>
+          <h3>Development</h3>
+          <p>
+            Follow the map, gameplay, and feature development as the project progresses.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="team">
+      <div class="section-title">
+        <small>THE TEAM</small>
+        <h2>KT × Ryvex</h2>
+      </div>
+
+      <div class="owners">
+
+        <div class="owner">
+          <div class="owner-name">KT</div>
+          <div class="owner-role">OWNER</div>
+        </div>
+
+        <div class="owner">
+          <div class="owner-name">Ryvex</div>
+          <div class="owner-role">CO-OWNER</div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="discord">
+      <div class="discord-box">
+        <h2>Join the Community</h2>
+
+        <p>
+          Get project updates, development news, sneak peeks, and community access.
+        </p>
 
         <a
-          class="btn primary"
-          href="https://discord.gg/bgtqHPykB6"
-          target="_blank">
-          JOIN DISCORD
+          class="btn btn-primary"
+          href="https://discord.gg/eA85TWF6yq"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          JOIN PROJECTKYNV
         </a>
-
-        <a
-          class="btn outline"
-          href="#about">
-          LEARN MORE
-        </a>
-
       </div>
-
-
-      <div class="cards" id="about">
-
-        <div class="card">
-          <div class="card-label">PROJECT</div>
-          <div class="card-value">Project <span>Kynv</span></div>
-        </div>
-
-        <div class="card">
-          <div class="card-label">OWNERS</div>
-          <div class="card-value">KT × Ryvex</div>
-        </div>
-
-        <div class="card">
-          <div class="card-label">COMMUNITY</div>
-          <div class="card-value">Discord <span>Online</span></div>
-        </div>
-
-      </div>
-
     </section>
 
   </main>
 
-
   <footer>
-    © 2026 PROJECTKYNV
+    © 2026 <strong>ProjectKynv</strong> — KT × Ryvex
   </footer>
 
 </body>
 </html>
-```
